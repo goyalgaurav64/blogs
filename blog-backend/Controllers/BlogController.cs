@@ -22,10 +22,14 @@ namespace blog_backend.Controllers
             return Ok(blogs);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<ActionResult> GetBlog([FromRoute] int id)
         {
             var blog = await _repository.GetById(id);
+            if (blog == null)
+            {
+                return NotFound();
+            }
             return Ok(blog);
         }
 
@@ -37,25 +41,33 @@ namespace blog_backend.Controllers
             return Ok();
         }
 
-        [HttpPut("id")]
-        public async Task<ActionResult> UpdateBlog([FromBody] Blog blog, [FromRoute] int id)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateBlog([FromBody] Blog blogPost, [FromRoute] int id)
         {
-            var blogId = await _repository.GetById(id);
-            if (blogId == null)
+            var blog = await _repository.GetById(id);
+            if (blog == null)
             {
                 return NotFound();
             }
+
+            blog.Category = blogPost.Category;
+            blog.Description = blogPost.Description;
+            blog.Content = blogPost.Content;
+            blog.Title  = blogPost.Title;
+            blog.IsFeatured = blogPost.IsFeatured;
+            blog.Image = blogPost.Image;
+
             _repository.Update(blog);
             await _repository.SaveChanges();
             return Ok();
 
         }
 
-        [HttpDelete("id")]
-        public async Task<ActionResult> DeleteBlog([FromRoute] int id, [FromBody] Blog blog)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteBlog([FromRoute] int id, [FromBody] Blog blogPost)
         {
-            var blogId = await _repository.GetById(id);
-            if (blogId == null)
+            var blog = await _repository.GetById(id);
+            if (blog == null)
             {
                 return NotFound();
             }
