@@ -1,5 +1,5 @@
-﻿using blog_backend.Data;
-using blog_backend.Entity;
+﻿using blog_backend.Entity;
+using blog_backend.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ namespace blog_backend.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
+        [HttpGet("blogs")]
         public async Task<ActionResult> GetBlogsList()
         {
             var blogs = await _repository.GetAll();

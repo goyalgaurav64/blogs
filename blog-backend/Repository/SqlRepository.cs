@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using blog_backend.Data;
+using blog_backend.Interface;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace blog_backend.Data
+namespace blog_backend.Repository
 {
     public class SqlRepository<T> : IRepository<T> where T : class
     {

@@ -1,5 +1,5 @@
-﻿using blog_backend.Data;
-using blog_backend.Entity;
+﻿using blog_backend.Entity;
+using blog_backend.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
